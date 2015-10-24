@@ -11,7 +11,7 @@ Next, you may build everything from scratch using sources (takes ~ 1 hour to com
 just do:
 ```bash
 $ docker pull bananos/armbuild-mysql51
-$ docker run -d -p 3306:3306 -v /mnt/data:/var/mysql51/data -e MYSQL_ROOT_PASSWORD=12345 bananos/armbuild-mysql51
+$ docker run -d -p 3306:3306 -v /mnt/data:/var/mysql51/data -v /mnt/logs:/var/log/mysql51 -e MYSQL_ROOT_PASSWORD=12345 bananos/armbuild-mysql51
 ```
 On the first run initial database files will be created (via `mysql_install_db`) and root password set.
 

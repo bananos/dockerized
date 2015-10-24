@@ -51,6 +51,29 @@ server {
 }
 ``` 
 
+
+##PECL
+The following packages are build and may be configured in `php.ini`:
+
+```
+/opt/php52/bin/pecl list
+Installed packages, channel pecl.php.net:
+=========================================
+Package    Version State
+APC        3.1.13  beta
+PDO        1.0.3   stable
+amqp       1.4.0   stable
+mailparse  2.1.6   stable
+memcache   2.2.7   stable
+mongo      1.5.8   stable
+oauth      1.2.3   stable
+redis      2.2.7   stable
+timezonedb 2015.7  stable
+xdebug     2.0.5   stable
+zip        1.13.1  stable
+```
+
+
 ## Notes
 1) This version of php does not include `php-fpm`, which does exist for version 5.2.17 in the form of patch. 
    The main reason for this is that it does not support ARM architecture in any way (code heavily uses x86 inline asm for performance)

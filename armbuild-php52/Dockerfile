@@ -11,7 +11,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
 	autoconf \
 	build-essential \
 	libxml2-dev \ 
-        zlibc zlib1g-dev
+        zlibc zlib1g-dev \
+	libgeoip-dev geoip-database geoip-bin geoip-dbg geoip-database-extra
 
 # zlib
 RUN cd /tmp/build && wget "http://zlib.net/zlib-1.2.8.tar.gz" && tar -xf zlib-1.2.8.tar.gz && cd zlib-1.2.8 && ./configure --prefix=/opt/zlib && make && make install
@@ -50,8 +51,13 @@ RUN cd /tmp/build/eaccelerator-0.9.6.1 && /opt/php52/bin/phpize
 RUN cd /tmp/build/eaccelerator-0.9.6.1 || autoconf || automake 
 RUN cd /tmp/build/eaccelerator-0.9.6.1 && ./configure --prefix=/opt/eaccelerator --enable-eaccelerator=shared --with-php-config=/opt/php52/bin/php-config  --with-eaccelerator-userid=1
 RUN cd /tmp/build/eaccelerator-0.9.6.1 && make && make install
+
+# PECL extensions
+RUN printf "\n" | /opt/php52/bin/pecl install --force memcache apc zip timezonedb geoip redis oauth PDO_PGSQL
+
 # conf
 RUN mkdir -p /opt/var/eaccelerator_cache
+RUN rm -rf /tmp
 ADD php.ini /opt/php52/lib/php.ini 
 
 WORKDIR /opt

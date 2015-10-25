@@ -13,7 +13,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
 	libxml2-dev \ 
         zlibc zlib1g-dev \
 	libgeoip-dev geoip-database geoip-bin geoip-dbg geoip-database-extra \
- 	librabbitmq-dev
+ 	postgresql-server-dev-9.4
 
 # zlib
 RUN cd /tmp/build && wget "http://zlib.net/zlib-1.2.8.tar.gz" && tar -xf zlib-1.2.8.tar.gz && cd zlib-1.2.8 && ./configure --prefix=/opt/zlib && make && make install
@@ -44,7 +44,7 @@ RUN cd /tmp/build && wget http://museum.php.net/php5/php-5.2.17.tar.gz && tar -x
 # apply patches
 RUN cd /tmp/build && patch -p0 <patches/libxml29_compat.patch && patch -p0 <patches/suhosin-patch-5.2.17-0.9.7.patch
 # build
-RUN cd /tmp/build/php-5.2.17 && ./configure --prefix=/opt/php52 --enable-fastcgi --with-zlib --with-zlib-dir=/opt/zlib/ --with-bz2 --with-jpeg-dir=/opt/libjpeg --with-png-dir=/opt/libpng --with-gd --with-freetype-dir=/opt/freetype --with-curl=/opt/curl --with-openssl=/opt/openssl --with-gettext=/opt/gettext --with-curlwrapper --with-sqlite --enable-cli --enable-gd-native-ttf --enable-ftp --enable-mbstring --enable-sqlite-utf8 --enable-xml --enable-shmop  --enable-sysvsem --enable-inline-optimization --enable-mbregex --enable-force-cgi-redirect --enable-sockets --with-mysql=/opt/mysql51 --with-pdo-mysql=/opt/mysql51 && make && make install
+RUN cd /tmp/build/php-5.2.17 && ./configure --prefix=/opt/php52 --enable-fastcgi --with-zlib --with-zlib-dir=/opt/zlib/ --with-bz2 --with-jpeg-dir=/opt/libjpeg --with-png-dir=/opt/libpng --with-gd --with-freetype-dir=/opt/freetype --with-curl=/opt/curl --with-openssl=/opt/openssl --with-gettext=/opt/gettext --with-curlwrapper --with-sqlite --enable-cli --enable-gd-native-ttf --enable-ftp --enable-mbstring --enable-sqlite-utf8 --enable-xml --enable-shmop  --enable-sysvsem --enable-inline-optimization --enable-mbregex --enable-force-cgi-redirect --enable-sockets --with-mysql=/opt/mysql51 --with-pdo-mysql=/opt/mysql51 --with-pgsql --with-pdo-pgsql && make && make install
 
 # eAccelerator
 RUN cd /tmp/build && wget "https://github.com/downloads/eaccelerator/eaccelerator/eaccelerator-0.9.6.1.tar.bz2" && tar -xf eaccelerator-0.9.6.1.tar.bz2 
@@ -54,7 +54,7 @@ RUN cd /tmp/build/eaccelerator-0.9.6.1 && ./configure --prefix=/opt/eaccelerator
 RUN cd /tmp/build/eaccelerator-0.9.6.1 && make && make install
 
 # PECL extensions
-RUN printf "\n" | /opt/php52/bin/pecl install memcache apc zip timezonedb mailparse geoip redis oauth PDO_PGSQL xdebug-2.0.5 mongo-1.5.8
+RUN printf "\n" | /opt/php52/bin/pecl install memcache apc zip timezonedb geoip redis oauth xdebug-2.0.5 mongo-1.5.8
 
 # conf
 RUN mkdir -p /opt/var/eaccelerator_cache

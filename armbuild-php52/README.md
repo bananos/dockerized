@@ -61,9 +61,6 @@ Installed packages, channel pecl.php.net:
 =========================================
 Package    Version State
 APC        3.1.13  beta
-PDO        1.0.3   stable
-amqp       1.4.0   stable
-mailparse  2.1.6   stable
 memcache   2.2.7   stable
 mongo      1.5.8   stable
 oauth      1.2.3   stable

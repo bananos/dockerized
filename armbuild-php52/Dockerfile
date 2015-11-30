@@ -43,8 +43,8 @@ RUN cd /tmp/build && wget "http://www.mysql.com/get/Downloads/MySQL-5.1/mysql-5.
 RUN cd /tmp/build && wget http://museum.php.net/php5/php-5.2.17.tar.gz && tar -xf php-5.2.17.tar.gz 
 # apply patches
 RUN cd /tmp/build && patch -p1 -d php-5.2.17/ <patches/php-5.2.17-fpm-arm-0.5.14.diff && patch -p0 <patches/libxml29_compat.patch && patch -p0 <patches/suhosin-patch-5.2.17-0.9.7.patch
-# build
-RUN cd /tmp/build/php-5.2.17 && ./configure --prefix=/opt/php52 --enable-fastcgi --enable-fpm --with-config-file-path=/opt/php52/conf/ --with-zlib --with-zlib-dir=/opt/zlib/ --with-bz2 --with-jpeg-dir=/opt/libjpeg --with-png-dir=/opt/libpng --with-gd --with-freetype-dir=/opt/freetype --with-curl=/opt/curl --with-openssl=/opt/openssl --with-gettext=/opt/gettext --with-curlwrapper --with-sqlite --enable-cli --enable-gd-native-ttf --enable-ftp --enable-mbstring --enable-sqlite-utf8 --enable-xml --enable-shmop  --enable-sysvsem --enable-inline-optimization --enable-mbregex --enable-force-cgi-redirect --enable-sockets --with-mysql=/opt/mysql51 --with-pdo-mysql=/opt/mysql51 --with-pgsql --with-pdo-pgsql && make -j1 && make install
+# build; Strange hack with echo avoids "Text file busy" error 
+RUN cd /tmp/build/php-5.2.17 && echo " " >> /tmp/build/php-5.2.17/libevent/configure && ./configure --prefix=/opt/php52 --enable-fastcgi --enable-fpm --with-config-file-path=/opt/php52/conf/ --with-zlib --with-zlib-dir=/opt/zlib/ --with-bz2 --with-jpeg-dir=/opt/libjpeg --with-png-dir=/opt/libpng --with-gd --with-freetype-dir=/opt/freetype --with-curl=/opt/curl --with-openssl=/opt/openssl --with-gettext=/opt/gettext --with-curlwrapper --with-sqlite --enable-cli --enable-gd-native-ttf --enable-ftp --enable-mbstring --enable-sqlite-utf8 --enable-xml --enable-shmop  --enable-sysvsem --enable-inline-optimization --enable-mbregex --enable-force-cgi-redirect --enable-sockets --with-mysql=/opt/mysql51 --with-pdo-mysql=/opt/mysql51 --with-pgsql --with-pdo-pgsql && make -j4 && make install
 
 # create php-fpm pool user/group
 RUN groupadd www && useradd -g www www

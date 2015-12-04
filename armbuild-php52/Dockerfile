@@ -22,7 +22,7 @@ RUN cd /tmp/build && wget "http://zlib.net/zlib-1.2.8.tar.gz" && tar -xf zlib-1.
 RUN cd /tmp/build && wget "http://www.ijg.org/files/jpegsrc.v8d.tar.gz" && tar -xf jpegsrc.v8d.tar.gz && cd jpeg-8d && ./configure --prefix=/opt/libjpeg && make -j4 && make install
 
 # libpng
-RUN cd /tmp/build && wget "http://downloads.sourceforge.net/project/libpng/libpng16/1.6.18/libpng-1.6.18.tar.gz" && tar -xf libpng-1.6.18.tar.gz && cd libpng-1.6.18 && ./configure --prefix=/opt/libpng && make -j4 && make install
+RUN cd /tmp/build && wget "http://downloads.sourceforge.net/project/libpng/libpng16/1.6.20/libpng-1.6.20.tar.gz" && tar -xf libpng-1.6.20.tar.gz && cd libpng-1.6.20 && ./configure --prefix=/opt/libpng && make -j4 && make install
 
 # CURL
 RUN cd /tmp/build && wget "http://curl.haxx.se/download/curl-7.30.0.tar.gz" && tar -xf curl-7.30.0.tar.gz && cd curl-7.30.0 && ./configure --prefix=/opt/curl && make -j4 && make install

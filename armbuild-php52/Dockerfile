@@ -13,7 +13,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
 	libxml2-dev \ 
         zlibc zlib1g-dev \
 	libgeoip-dev geoip-database geoip-bin geoip-dbg geoip-database-extra \
- 	postgresql-server-dev-9.4
+ 	libpq-dev
 
 # zlib
 RUN cd /tmp/build && wget "http://zlib.net/zlib-1.2.8.tar.gz" && tar -xf zlib-1.2.8.tar.gz && cd zlib-1.2.8 && ./configure --prefix=/opt/zlib && make -j4 && make install

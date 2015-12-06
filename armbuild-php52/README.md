@@ -72,8 +72,8 @@ zip        1.13.1  stable
 
 
 ## Notes
-1) This version of php does not include `php-fpm`, which does exist for version 5.2.17 in the form of patch. 
-   The main reason for this is that it does not support ARM architecture in any way (code heavily uses x86 inline asm for performance)
+1) This version of php includes `php-fpm` (PHP Fast Process Manager) which was partially backported from php5.3 in order to work on ARM
+   architecture. Original fpm patch you may find at [php-fpm.org](http://php-fpm.org/)
 
 2) You may easily fork and modify this image and try to build it for another platform by modifying base image `armbuild/ubuntu:15.04` 
    in `Dockerfile`, since there is nothing specific about ARM in build 

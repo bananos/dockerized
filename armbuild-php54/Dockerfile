@@ -12,16 +12,19 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
 	libxml2-dev \ 
         zlibc zlib1g-dev \
 	libgeoip-dev geoip-database geoip-bin geoip-dbg geoip-database-extra \
- 	libpq-dev librabbitmq-dev
+ 	libpq-dev librabbitmq-dev \ 
+	libssl-dev libcurl4-gnutls-dev libjpeg-dev libpng12-dev
 
 
-cd /tmp/build && wget "http://zlib.net/zlib-1.2.8.tar.gz" && tar -xf zlib-1.2.8.tar.gz && cd zlib-1.2.8 && ./configure --prefix=/opt/zlib && make -j4 && make install
+RUN cd /tmp/build && wget "http://zlib.net/zlib-1.2.8.tar.gz" && tar -xf zlib-1.2.8.tar.gz && cd zlib-1.2.8 && ./configure --prefix=/opt/zlib && make -j4 && make install
+
+RUN cd /tmp/build && curl "https://www.openssl.org/source/openssl-0.9.8zh.tar.gz" > openssl-0.9.8zh.tar.gz && tar -xf openssl-0.9.8zh.tar.gz && cd openssl-0.9.8zh && ./config --prefix=/opt/openssl && make -j4 && make install
 
 # php5.4
 RUN cd /tmp/build && wget "http://fr2.php.net/get/php-5.4.45.tar.bz2/from/this/mirror" -O php-5.4.45.tar.bz2 && tar -xf php-5.4.45.tar.bz2 
 
 # build;
-RUN cd /tmp/build/php-5.4.45 && ./configure --prefix=/opt/php54 --enable-fpm --with-config-file-path=/opt/php54/conf/ --with-zlib --with-zlib-dir=/opt/zlib/ --with-bz2 --with-gd --with-curl --with-openssl --with-gettext --with-curlwrappers --enable-cli --enable-gd-native-ttf --enable-ftp --enable-mbstring --enable-xml --enable-shmop  --enable-sysvsem --enable-inline-optimization --enable-mbregex --enable-sockets --with-mysql --with-pdo-mysql --with-pgsql --with-pdo-pgsql
+RUN cd /tmp/build/php-5.4.45 && ./configure --prefix=/opt/php54 --enable-fpm --with-config-file-path=/opt/php54/conf/ --with-zlib --with-zlib-dir=/opt/zlib/ --with-bz2 --with-gd --with-curl --with-openssl=/opt/openssl --with-gettext --with-curlwrappers --enable-cli --enable-gd-native-ttf --enable-ftp --enable-mbstring --enable-xml --enable-shmop  --enable-sysvsem --enable-inline-optimization --enable-mbregex --enable-sockets --with-mysql --with-pdo-mysql --with-pgsql --with-pdo-pgsql && make -j4 && make install
 
 # create php-fpm pool user/group
 RUN groupadd www && useradd -g www www

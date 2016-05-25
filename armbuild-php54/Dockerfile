@@ -30,7 +30,7 @@ RUN cd /tmp/build/php-5.4.45 && ./configure --prefix=/opt/php54 --enable-fpm --w
 RUN groupadd www && useradd -g www www
 
 # PECL extensions
-RUN printf "\n" | /opt/php54/bin/pecl install memcache apc zip timezonedb geoip redis oauth xdebug-2.3.3 mongo-1.6.12 amqp-1.6.1
+RUN printf "\n" | /opt/php54/bin/pecl install memcache apc zip timezonedb geoip redis oauth-1.2.3 xdebug-2.3.3 mongo-1.6.12 amqp-1.6.1
 
 
 # conf

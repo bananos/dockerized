@@ -50,7 +50,7 @@ RUN cd /tmp/build/php-5.2.17 && echo " " >> /tmp/build/php-5.2.17/libevent/confi
 RUN groupadd www && useradd -g www www
 
 # PECL extensions
-RUN printf "\n" | /opt/php52/bin/pecl install memcache apc zip timezonedb geoip redis oauth xdebug-2.0.5 mongo-1.5.8
+RUN printf "\n" | /opt/php52/bin/pecl install memcache apc zip timezonedb geoip redis oauth-1.2.3 xdebug-2.0.5 mongo-1.5.8
 
 # conf
 RUN rm -rf /tmp/*

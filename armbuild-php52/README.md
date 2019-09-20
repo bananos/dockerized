@@ -6,7 +6,7 @@ Specifically it is targeted towards [Scaleway](https://scaleway.com) IaaS provid
 armhf hardware servers.
 
 ## Usage
-In order to run this image you'll need to spawn your C1 server from docker-based image.
+In order to run this image you'll need to spawn your C1 server from docker-enabled base image.
 Next, you may build everything from scratch using sources (takes several hours to compile everything), or 
 just do:
 ```bash
